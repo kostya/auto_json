@@ -1,6 +1,6 @@
 # auto_json
 
-Auto JSON convertations for classes and structs, based on auto_constructor fields
+Auto JSON convertations for classes and structs, based on [auto_constructor](https://github.com/kostya/auto_constructor) fields
 
 ## Installation
 
