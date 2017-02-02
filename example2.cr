@@ -3,7 +3,7 @@ require "./src/auto_json"
 struct A
   include AutoJson
 
-  json_options(strict: true)
+  json_options(strict: true, emit_nulls: true)
 
   field :a, Int32, key: "bla"
   field :b, String, default: "def"
