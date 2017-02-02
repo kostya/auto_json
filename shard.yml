@@ -1,0 +1,17 @@
+name: auto_json
+version: 0.1.0
+
+authors:
+  - Konstantin Makarchev <kostya27@gmail.com>
+
+targets:
+  auto_json:
+    main: src/auto_json.cr
+
+crystal: 0.20.5
+
+dependencies:
+  auto_constructor:
+    github: kostya/auto_constructor
+
+license: MIT
