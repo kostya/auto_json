@@ -38,8 +38,10 @@ puts A.from_json(%q<{"a":1,"c":3,"e":1.1}>) # => A(@a=1, @b="def", @c=3, @d=nil,
   :json_key - set serialized key for json
   :serialize - serialize field? [true]
   :json - serialize field for json? [true]
-  :converter - converter as in JSON.mapping
-  :emit_null - emit null in generate json
+  :converter - converter
+  :json_converter - json_converter
+  :emit_null - emit null in generate
+  :json_emit_null - emit null in generate json
 ```
 
 ## Advanced Example
@@ -55,9 +57,9 @@ struct A
   field :a, Int32, key: "bla"
   field :b, String, default: "def"
   field :c, Int32, json_key: "blc"
-  field :d, String?, emit_null: true
+  field :d, String?, json_emit_null: true
   field :e, Float64, default: 1.1, json: false
-  field :t, Time?, converter: Time::Format.new("%F %T")
+  field :t, Time?, json_converter: Time::Format.new("%F %T")
 end
 
 a = A.new(a: 1, b: "b", c: 2, t: Time.now)

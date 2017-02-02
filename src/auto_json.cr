@@ -7,11 +7,14 @@ module AutoJson
   macro included
     include AutoConstructor
 
-    JSON_OPTIONS = {} of Nil => Nil
+    {% if !@type.constant :JSON_OPTIONS %}
+      JSON_OPTIONS = {} of Nil => Nil
+    {% end %}
 
     macro json_options(**opts)
       \{%
         JSON_OPTIONS[:strict] = opts[:strict]
+        JSON_OPTIONS[:emit_nulls] = opts[:emit_nulls]
       %}
     end
 
@@ -36,8 +39,8 @@ module AutoJson
 
                   _\{{field[:name].id}} =
                     \{% if field[:default] != nil %} %pull.read_null_or { \{% end %}
-                      \{% if field[:converter] %}
-                        \{{field[:converter]}}.from_json(%pull)
+                      \{% if field[:json_converter] || field[:converter] %}
+                        \{{field[:json_converter] || field[:converter]}}.from_json(%pull)
                       \{% else %}
                         (\{{field[:type].id}}).new(%pull)
                       \{% end %}
@@ -87,14 +90,14 @@ module AutoJson
             \{% if field[:json] != false && field[:serialize] != false %}
               _\{{field[:name].id}} = @\{{field[:name].id}}
 
-              \{% unless field[:emit_null] %}
+              \{% unless (JSON_OPTIONS[:emit_nulls] || field[:json_emit_null] || field[:emit_null]) %}
                 unless _\{{field[:name].id}}.is_a?(Nil)
               \{% end %}
 
                 json.field(\{{(field[:json_key] || field[:key] || field[:name]).id.stringify}}) do
-                  \{% if field[:converter] %}
+                  \{% if field[:json_converter] || field[:converter] %}
                     if _\{{field[:name].id}}
-                      \{{ field[:converter] }}.to_json(_\{{field[:name].id}}, json)
+                      \{{ field[:json_converter] || field[:converter] }}.to_json(_\{{field[:name].id}}, json)
                     else
                       nil.to_json(json)
                     end
@@ -103,7 +106,7 @@ module AutoJson
                   \{% end %}
                 end
 
-              \{{ field[:emit_null] ? "".id : "end".id }}
+              \{{ (JSON_OPTIONS[:emit_nulls] || field[:json_emit_null] || field[:emit_null]) ? "".id : "end".id }}
             \{% end %}
           \{% end %}
         end

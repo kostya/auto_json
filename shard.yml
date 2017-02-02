@@ -13,5 +13,6 @@ crystal: 0.20.5
 dependencies:
   auto_constructor:
     github: kostya/auto_constructor
+    version: 0.2
 
 license: MIT
