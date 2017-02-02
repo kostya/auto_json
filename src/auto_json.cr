@@ -2,7 +2,7 @@ require "json"
 require "auto_constructor"
 
 module AutoJson
-  VERSION = "0.1"
+  VERSION = "0.2"
 
   macro included
     include AutoConstructor
