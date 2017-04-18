@@ -8,7 +8,7 @@ Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  auto_constructor:
+  auto_json:
     github: kostya/auto_json
 ```
 
