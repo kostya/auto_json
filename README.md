@@ -1,3 +1,5 @@
+# THIS PROJECT DEPRECATED, just use MessagePack::Serializable module instead.
+
 # auto_json
 
 Auto JSON convertations for classes and structs, based on [auto_constructor](https://github.com/kostya/auto_constructor) fields
