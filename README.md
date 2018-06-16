@@ -1,4 +1,4 @@
-# THIS PROJECT DEPRECATED, just use MessagePack::Serializable module instead.
+# THIS PROJECT DEPRECATED, just use JSON::Serializable module instead.
 
 # auto_json
 
